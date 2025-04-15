@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 
-function CategoryFilter() {
+function CategoryFilter({ categories, onFilter }) {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  function handleClick(category) {
+    setSelectedCategory(category);
+    onFilter(category); // Notify parent of the selected category
+  }
+
   return (
-    <div className="categories">
-      <h5>Category filters</h5>
-      {/* render <button> elements for each category here */}
+    <div>
+      {categories.map((category) => (
+        <button
+          key={category}
+          className={category === selectedCategory ? "selected" : ""}
+          onClick={() => handleClick(category)}
+        >
+          {category}
+        </button>
+      ))}
     </div>
   );
 }
